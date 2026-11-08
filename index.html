@@ -2,396 +2,448 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>btzz's portal</title>
-
-  <!-- ФАВИКОН С АМ НЯМОМ -->
   <link rel="icon" type="image/png" href="05961d2a-42ee-4c9f-811d-a259c28f42a5-removebg-preview.png">
 
+  <!-- Google Fonts: Roboto Flex & Material Symbols Outlined -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:wght@400;500;600;700;800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --bg: #010501;
-      --text: #ffffff;
-      --btn-bg: rgba(255, 255, 255, 0.04);
-      --btn-border: rgba(255, 255, 255, 0.15);
+      /* M3 Expressive Palette (Monet Slate/Violet Dark Scheme) */
+      --md-sys-color-background: #0f141a;
+      --md-sys-color-surface: #171d25;
+      --md-sys-color-surface-container: #1e252f;
+      --md-sys-color-surface-container-high: #29313d;
+      --md-sys-color-primary: #9ecaff;
+      --md-sys-color-on-primary: #003258;
+      --md-sys-color-primary-container: #1b4975;
+      --md-sys-color-on-primary-container: #d1e4ff;
+      --md-sys-color-secondary-container: #394859;
+      --md-sys-color-on-secondary-container: #d5e3f8;
+      --md-sys-color-tertiary-container: #523e5f;
+      --md-sys-color-on-tertiary-container: #f4d9ff;
+      --md-sys-color-outline-variant: rgba(255, 255, 255, 0.1);
+      --md-sys-color-on-surface: #e1e2e8;
+      --md-sys-color-on-surface-variant: #c3c7cf;
+
+      /* M3 Expressive Shape Tokens (Squircle Bezier approximations) */
+      --md-shape-corner-xs: 8px;
+      --md-shape-corner-sm: 12px;
+      --md-shape-corner-md: 18px;
+      --md-shape-corner-lg: 24px;
+      --md-shape-corner-xl: 32px;
+      --md-shape-corner-full: 9999px;
+
+      /* M3 Spring / Emphasized Transitions */
+      --md-motion-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --md-motion-standard: cubic-bezier(0.2, 0, 0, 1);
+      --md-motion-duration: 250ms;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
       -webkit-tap-highlight-color: transparent;
     }
 
-    html, body {
-      width: 100%;
-      height: 100vh;
-      height: -webkit-fill-available;
-      overflow: hidden;
-      background-color: var(--bg);
-      color: var(--text);
+    body {
+      background-color: var(--md-sys-color-background);
+      color: var(--md-sys-color-on-surface);
+      font-family: 'Roboto Flex', sans-serif;
+      min-height: 100vh;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
       position: relative;
-      perspective: 1000px;
+      overflow-x: hidden;
     }
 
-    /* --- ФОНОВЫЕ АМ НЯМЫ --- */
-    .bg-visuals {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
+    /* Floating Om Nom Background Elements */
+    .bg-canvas {
+      position: fixed;
+      inset: 0;
       pointer-events: none;
+      z-index: 0;
       overflow: hidden;
     }
 
-    .omnom {
+    .bg-canvas img {
       position: absolute;
-      width: 45px;
-      height: auto;
-      opacity: 0.6;
-      animation: fastDiagonalFly infinite linear;
+      width: 58px;
+      opacity: 0.18;
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
+      animation: floatAround 22s infinite ease-in-out alternate;
     }
 
-    @keyframes fastDiagonalFly {
-      0% { 
-        transform: translate(0, 0) rotate(0deg); 
-      }
-      100% { 
-        transform: translate(120vw, -120vh) rotate(360deg); 
-      }
+    .bg-canvas img:nth-child(1) { top: 8%; left: 12%; animation-duration: 18s; transform: rotate(-8deg); }
+    .bg-canvas img:nth-child(2) { top: 20%; right: 14%; animation-duration: 24s; transform: rotate(14deg); }
+    .bg-canvas img:nth-child(3) { bottom: 15%; left: 10%; animation-duration: 20s; transform: rotate(6deg); }
+    .bg-canvas img:nth-child(4) { bottom: 10%; right: 18%; animation-duration: 26s; transform: rotate(-16deg); }
+    .bg-canvas img:nth-child(5) { top: 55%; left: 4%; animation-duration: 22s; }
+    .bg-canvas img:nth-child(6) { top: 48%; right: 6%; animation-duration: 19s; }
+    .bg-canvas img:nth-child(7) { top: 82%; left: 45%; animation-duration: 25s; }
+    .bg-canvas img:nth-child(8) { top: 4%; right: 42%; animation-duration: 21s; }
+
+    @keyframes floatAround {
+      0% { transform: translateY(0px) rotate(0deg) scale(1); }
+      50% { transform: translateY(-22px) rotate(8deg) scale(1.05); }
+      100% { transform: translateY(18px) rotate(-8deg) scale(0.96); }
     }
 
-    .om1 { bottom: -5%; left: -15%; animation-duration: 3.2s; animation-delay: 0s; }
-    .om2 { bottom: 15%; left: -20%; animation-duration: 2.8s; animation-delay: 0.8s; width: 35px; }
-    .om3 { bottom: 35%; left: -15%; animation-duration: 3.5s; animation-delay: 1.5s; }
-    .om4 { bottom: 50%; left: -25%; animation-duration: 4.0s; animation-delay: 2.2s; width: 55px; }
-    .om5 { bottom: 65%; left: -10%; animation-duration: 3.0s; animation-delay: 0.4s; }
-    .om6 { bottom: 80%; left: -20%; animation-duration: 2.6s; animation-delay: 1.1s; width: 30px; }
-    .om7 { bottom: 25%; left: -10%; animation-duration: 3.8s; animation-delay: 0.2s; width: 50px; }
-    .om8 { bottom: 90%; left: -15%; animation-duration: 2.9s; animation-delay: 1.8s; }
-
-    /* --- ОБОРОЧНЫЙ КОНТЕЙНЕР --- */
-    .portal-container {
+    /* Layout Wrapper */
+    .portal-shell {
       position: relative;
-      z-index: 10;
-      width: 92%;
-      max-width: 340px;
+      z-index: 1;
+      width: 100%;
+      max-width: 440px;
       display: flex;
       flex-direction: column;
-      align-items: flex-end;
-      transform-style: preserve-3d;
-      transition: transform 0.1s ease-out;
+      gap: 16px;
     }
 
-    /* --- ОСНОВНАЯ КОМПОЗИЦИЯ С РАМКОЙ --- */
-    .flow-wrapper {
-      width: 100%;
+    /* M3 Banner / Notification Pill */
+    .banner-pill {
+      background: rgba(30, 37, 47, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--md-sys-color-outline-variant);
+      border-radius: var(--md-shape-corner-xl);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    }
+
+    .banner-pill .material-symbols-outlined {
+      color: var(--md-sys-color-primary);
+      font-size: 20px;
+    }
+
+    .banner-text {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--md-sys-color-on-surface-variant);
+      letter-spacing: 0.2px;
+    }
+
+    /* M3 Surface Card */
+    .card-container {
+      background: rgba(23, 29, 37, 0.8);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      border: 1px solid var(--md-sys-color-outline-variant);
+      border-radius: var(--md-shape-corner-xl);
+      padding: 28px 24px;
       display: flex;
       flex-direction: column;
-      gap: 15px;
-      padding: 18px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      background: rgba(1, 5, 1, 0.4);
-      backdrop-filter: blur(8px);
+      gap: 24px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
     }
 
-    .main-title {
-      font-size: 1.95rem;
-      font-weight: 900;
-      letter-spacing: -0.03em;
-      text-transform: lowercase;
-      text-align: left;
-      width: 100%;
+    /* Header & Title */
+    .portal-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      text-align: center;
     }
 
-    .numbers-grid {
+    .avatar-wrapper {
+      width: 72px;
+      height: 72px;
+      border-radius: var(--md-shape-corner-lg);
+      background: var(--md-sys-color-primary-container);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border: 2px solid var(--md-sys-color-outline-variant);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.28);
+    }
+
+    .avatar-wrapper img {
+      width: 80%;
+      height: 80%;
+      object-fit: contain;
+    }
+
+    .portal-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--md-sys-color-on-surface);
+      letter-spacing: -0.5px;
+    }
+
+    .section-label {
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--md-sys-color-primary);
+      margin-bottom: 8px;
+    }
+
+    /* Quick Channel Index Matrix */
+    .channel-matrix {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
-      gap: 1px;
-      width: 100%;
+      gap: 8px;
     }
 
-    .num-btn {
+    .matrix-chip {
+      background: var(--md-sys-color-surface-container);
+      color: var(--md-sys-color-primary);
+      border: 1px solid var(--md-sys-color-outline-variant);
+      border-radius: var(--md-shape-corner-sm);
+      height: 42px;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: transparent;
-      border: none;
-      color: var(--text);
       text-decoration: none;
-      font-family: 'Anton', Impact, 'Arial Narrow', sans-serif;
-      font-size: 2.25rem;
-      line-height: 1;
-      font-stretch: ultra-condensed;
-      opacity: 0.9;
-      padding: 2px 0;
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: all var(--md-motion-duration) var(--md-motion-spring);
     }
 
-    .diag-container {
+    .matrix-chip:hover {
+      background: var(--md-sys-color-primary);
+      color: var(--md-sys-color-on-primary);
+      transform: translateY(-3px) scale(1.08);
+      box-shadow: 0 4px 12px rgba(158, 202, 255, 0.35);
+    }
+
+    .matrix-chip:active {
+      transform: scale(0.94);
+    }
+
+    /* Featured Link Buttons (M3 Filled / Tonal Cards) */
+    .featured-links {
       display: flex;
       flex-direction: column;
-      gap: 2px;
-      width: 100%;
-      margin: 4px 0;
-    }
-
-    .diag-link {
-      color: #ffffff;
-      text-decoration: none;
-      font-family: Georgia, 'Times New Roman', Times, serif;
-      font-size: 1.5rem;
-      font-weight: 900;
-      letter-spacing: -0.01em;
-      display: block;
-      width: 100%;
-      white-space: pre;
-      line-height: 1.15;
-    }
-
-    .step-1 { text-align: left; }
-    .step-2 { text-align: center; }
-    .step-3 { text-align: right; }
-
-    .icons-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
       gap: 10px;
-      width: 100%;
     }
 
-    .icon-btn {
-      aspect-ratio: 1 / 1;
+    .featured-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      border-radius: var(--md-shape-corner-md);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all var(--md-motion-duration) var(--md-motion-spring);
+      border: 1px solid var(--md-sys-color-outline-variant);
+    }
+
+    .featured-btn-primary {
+      background: var(--md-sys-color-primary-container);
+      color: var(--md-sys-color-on-primary-container);
+    }
+
+    .featured-btn-secondary {
+      background: var(--md-sys-color-secondary-container);
+      color: var(--md-sys-color-on-secondary-container);
+    }
+
+    .featured-btn-tertiary {
+      background: var(--md-sys-color-tertiary-container);
+      color: var(--md-sys-color-on-tertiary-container);
+    }
+
+    .featured-btn:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+      filter: brightness(1.12);
+    }
+
+    .featured-btn:active {
+      transform: scale(0.98);
+    }
+
+    .featured-btn .icon-side {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Social Icons Row */
+    .social-strip {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .social-icon-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--md-shape-corner-md);
+      background: var(--md-sys-color-surface-container);
+      border: 1px solid var(--md-sys-color-outline-variant);
       display: flex;
       align-items: center;
       justify-content: center;
-      background: var(--btn-bg);
-      border: 1px solid var(--btn-border);
-      border-radius: 0px;
+      color: var(--md-sys-color-on-surface);
+      text-decoration: none;
+      transition: all var(--md-motion-duration) var(--md-motion-spring);
     }
 
-    .icon-btn svg {
-      width: 50%;
-      height: 50%;
-      fill: #ffffff;
+    .social-icon-btn svg {
+      width: 22px;
+      height: 22px;
+      fill: currentColor;
     }
 
-    .author-tag {
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 0.75rem;
-      color: rgba(255, 255, 255, 0.4);
-      text-align: right;
-      margin-top: 6px;
-      letter-spacing: 0.05em;
+    .social-icon-btn:hover {
+      background: var(--md-sys-color-surface-container-high);
+      color: var(--md-sys-color-primary);
+      transform: translateY(-4px) scale(1.1);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
     }
 
-    /* --- АНИМАЦИЯ ПРИ ВХОДЕ --- */
-    .num-btn, .diag-link, .icon-btn, .main-title, .author-tag {
-      opacity: 0;
-      animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    .social-icon-btn:active {
+      transform: scale(0.92);
     }
 
-    .main-title { animation-delay: 0.1s; }
-    .numbers-grid .num-btn:nth-child(1) { animation-delay: 0.15s; }
-    .numbers-grid .num-btn:nth-child(2) { animation-delay: 0.2s; }
-    .numbers-grid .num-btn:nth-child(3) { animation-delay: 0.25s; }
-    .numbers-grid .num-btn:nth-child(4) { animation-delay: 0.3s; }
-    .numbers-grid .num-btn:nth-child(5) { animation-delay: 0.35s; }
-    .numbers-grid .num-btn:nth-child(6) { animation-delay: 0.4s; }
-    .numbers-grid .num-btn:nth-child(7) { animation-delay: 0.45s; }
-
-    .diag-container .step-1 { animation-delay: 0.5s; }
-    .diag-container .step-2 { animation-delay: 0.55s; }
-    .diag-container .step-3 { animation-delay: 0.6s; }
-
-    .icons-grid .icon-btn:nth-child(1) { animation-delay: 0.65s; }
-    .icons-grid .icon-btn:nth-child(2) { animation-delay: 0.7s; }
-    .icons-grid .icon-btn:nth-child(3) { animation-delay: 0.75s; }
-    .icons-grid .icon-btn:nth-child(4) { animation-delay: 0.8s; }
-    .icons-grid .icon-btn:nth-child(5) { animation-delay: 0.85s; }
-    .icons-grid .icon-btn:nth-child(6) { animation-delay: 0.9s; }
-    .author-tag { animation-delay: 0.95s; }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(15px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* --- КНОПКА ВОПРОСА --- */
-    .info-btn {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      width: 38px;
-      height: 38px;
-      background: var(--btn-bg);
-      border: 1px solid var(--btn-border);
-      color: #ffffff;
-      font-size: 1.1rem;
-      font-weight: 900;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      z-index: 100;
-      backdrop-filter: blur(8px);
-      animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1s forwards;
-      opacity: 0;
-    }
-
-    /* --- МОДАЛЬНОЕ ОКНО --- */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(5px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-    }
-
-    .modal-overlay.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .modal-box {
-      background: rgba(10, 15, 10, 0.95);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      padding: 24px 36px;
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 1.1rem;
-      font-weight: bold;
-      color: #ffffff;
-      letter-spacing: 0.05em;
-      transform: scale(0.3);
-      transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    /* Footer Meta */
+    .author-badge {
       text-align: center;
-      max-width: 80vw;
-      word-break: break-word;
-    }
-
-    .modal-overlay.active .modal-box {
-      transform: scale(1);
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--md-sys-color-on-surface-variant);
+      opacity: 0.7;
+      letter-spacing: 0.4px;
     }
   </style>
 </head>
 <body>
 
-  <!-- ФОНОВЫЕ АМ НЯМЫ -->
-  <div class="bg-visuals">
-    <img src="05961d2a-42ee-4c9f-811d-a259c28f42a5-removebg-preview.png" class="omnom om1" alt="Am Nyam">
-    <img src="05961d2a-42ee-4c9f-811d-a259c28f42a5-removebg-preview.png" class="omnom om2" alt="Am Nyam">
-    <img src="05961d2a-42ee-4c9f-811d-a259c28f42a5-removebg-preview.png" class="omnom om3" alt="Am Nyam">
-    <img src="05961d2a-42ee-4c9f-811d-a259c28f42a5-removebg-preview.png" class="omnom om4" alt="Am Nyam">
-    <img src="05961d2a-42ee-4c9f-811d-a259c28f42a5-removebg-preview.png" class="omnom om5" alt="Am Nyam">
-    <img src="05961d2a-42ee-4c9f-811d-a259c28f42a5-removebg-preview.png" class="omnom om6" alt="Am Nyam">
-    <img src="05961d2a-42ee-4c9f-811d-a259c28f42a5-removebg-preview.png" class="omnom om7" alt="Am Nyam">
-    <img src="05961d2a-42ee-4c9f-811d-a259c28f42a5-removebg-preview.png" class="omnom om8" alt="Am Nyam">
+  <!-- Floating Om Nom Elements -->
+  <div class="bg-canvas">
+    <img src="05961d2a-42ee-4c9f-811d-a259c28f42a5-removebg-preview.png" alt="Am Nyam">
+    <img src="05961d2a-42ee-4c9f-811d-a259c28f42a5-removebg-preview.png" alt="Am Nyam">
+    <img src="05961d2a-42ee-4c9f-811d-a259c28f42a5-removebg-preview.png" alt="Am Nyam">
+    <img src="05961d2a-42ee-4c9f-811d-a259c28f42a5-removebg-preview.png" alt="Am Nyam">
+    <img src="05961d2a-42ee-4c9f-811d-a259c28f42a5-removebg-preview.png" alt="Am Nyam">
+    <img src="05961d2a-42ee-4c9f-811d-a259c28f42a5-removebg-preview.png" alt="Am Nyam">
+    <img src="05961d2a-42ee-4c9f-811d-a259c28f42a5-removebg-preview.png" alt="Am Nyam">
+    <img src="05961d2a-42ee-4c9f-811d-a259c28f42a5-removebg-preview.png" alt="Am Nyam">
   </div>
 
-  <div class="portal-container" id="flow">
-    <div class="flow-wrapper">
-      <div class="main-title">btzz's portal</div>
+  <div class="portal-shell">
 
-      <div class="numbers-grid">
-        <a href="https://t.me/kuzyaalica" target="_blank" class="num-btn">[1]</a>
-        <a href="https://t.me/bitsrblx" target="_blank" class="num-btn">[2]</a>
-        <a href="https://t.me/bitsryok" target="_blank" class="num-btn">[3]</a>
-        <a href="https://t.me/userbtzz" target="_blank" class="num-btn">[4]</a>
-        <a href="https://t.me/bitsrun" target="_blank" class="num-btn">[5]</a>
-        <a href="https://t.me/sigma_troIIface" target="_blank" class="num-btn">[6]</a>
-        <a href="https://t.me/hsqpy" target="_blank" class="num-btn">[7]</a>
-      </div>
-
-      <div class="diag-container">
-        <a href="https://t.me/postsbtzz" target="_blank" class="diag-link step-1">тг канал</a>
-        <a href="https://t.me/addemoji/emojipackbtzz" target="_blank" class="diag-link step-2">эмодзипак</a>
-        <a href="https://t.me/fanzloroka" target="_blank" class="diag-link step-3">фан zloroka</a>
-      </div>
-
-      <div class="icons-grid">
-        <a href="https://t.me/userbtzz" target="_blank" class="icon-btn" title="Telegram">
-          <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.831-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-        </a>
-        <a href="https://www.tiktok.com/@kuzyaalica" target="_blank" class="icon-btn" title="TikTok">
-          <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.28-2.6.77-5.23 2.75-6.93 1.45-1.28 3.39-1.93 5.34-1.83v4.11c-1.11-.12-2.26.23-3.11.95-.97.79-1.47 2.06-1.3 3.3.13 1.19.95 2.22 2.1 2.53 1.15.34 2.45.02 3.28-.82.68-.67 1.05-1.63 1.04-2.58V.02z"/></svg>
-        </a>
-        <a href="https://youtube.com/@kuzyaalica" target="_blank" class="icon-btn" title="YouTube">
-          <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-        </a>
-        <a href="https://steamcommunity.com/" target="_blank" class="icon-btn" title="Steam">
-          <svg viewBox="0 0 24 24"><path d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.03 4.524 4.524s-2.03 4.524-4.524 4.524c-.08 0-.158-.006-.238-.01l-4.11 2.883c.005.076.009.152.009.23 0 1.836-1.49 3.326-3.326 3.326-1.442 0-2.678-.92-3.137-2.203L.412 15.34C1.942 20.36 6.541 24 11.979 24c6.627 0 12-5.373 12-12s-5.373-12-12-12zM8.366 14.981l-1.465-.606c.241.512.636.93 1.144 1.198.88.464 1.972.235 2.585-.544.257-.327.394-.728.394-1.144 0-.116-.01-.233-.032-.349l-2.626 1.445zm7.573-8.095c-1.11 0-2.01.9-2.01 2.01s.9 2.01 2.01 2.01 2.01-.9 2.01-2.01-.9-2.01-2.01-2.01z"/></svg>
-        </a>
-        <a href="https://www.roblox.com/" target="_blank" class="icon-btn" title="Roblox">
-          <svg viewBox="0 0 24 24"><path d="M5.2 0L0 18.8 18.8 24 24 5.2 5.2 0zm9.3 14.1l-4.5-1.2 1.2-4.5 4.5 1.2-1.2 4.5z"/></svg>
-        </a>
-        <a href="https://github.com/kuzyaalica" target="_blank" class="icon-btn" title="GitHub">
-          <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-        </a>
-      </div>
+    <!-- Notification / Info Banner -->
+    <div class="banner-pill">
+      <span class="material-symbols-outlined">campaign</span>
+      <span class="banner-text">привет мой портал теперь не телеграм канал</span>
     </div>
 
-    <div class="author-tag">by kuzyaalica</div>
+    <!-- Main Container -->
+    <div class="card-container">
+      
+      <div class="portal-header">
+        <div class="avatar-wrapper">
+          <img src="05961d2a-42ee-4c9f-811d-a259c28f42a5-removebg-preview.png" alt="Avatar">
+        </div>
+        <div class="portal-title">btzz's portal</div>
+      </div>
+
+      <!-- Quick Matrix Grid [1] - [7] -->
+      <div>
+        <div class="section-label">Навигация</div>
+        <div class="channel-matrix">
+          <a class="matrix-chip" href="https://t.me/kuzyaalica" target="_blank">1</a>
+          <a class="matrix-chip" href="https://t.me/bitsrblx" target="_blank">2</a>
+          <a class="matrix-chip" href="https://t.me/bitsryok" target="_blank">3</a>
+          <a class="matrix-chip" href="https://t.me/userbtzz" target="_blank">4</a>
+          <a class="matrix-chip" href="https://t.me/bitsrun" target="_blank">5</a>
+          <a class="matrix-chip" href="https://t.me/sigma_troIIface" target="_blank">6</a>
+          <a class="matrix-chip" href="https://t.me/hsqpy" target="_blank">7</a>
+        </div>
+      </div>
+
+      <!-- Main Action Buttons -->
+      <div>
+        <div class="section-label">Каналы и контент</div>
+        <div class="featured-links">
+          <a class="featured-btn featured-btn-primary" href="https://t.me/postsbtzz" target="_blank">
+            <span class="icon-side">
+              <span class="material-symbols-outlined">chat</span>
+              тг канал
+            </span>
+            <span class="material-symbols-outlined">arrow_forward</span>
+          </a>
+
+          <a class="featured-btn featured-btn-secondary" href="https://t.me/addemoji/emojipackbtzz" target="_blank">
+            <span class="icon-side">
+              <span class="material-symbols-outlined">sentiment_satisfied</span>
+              эмодзипак
+            </span>
+            <span class="material-symbols-outlined">arrow_forward</span>
+          </a>
+
+          <a class="featured-btn featured-btn-tertiary" href="https://t.me/fanzloroka" target="_blank">
+            <span class="icon-side">
+              <span class="material-symbols-outlined">stars</span>
+              фан zloroka
+            </span>
+            <span class="material-symbols-outlined">arrow_forward</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Social Media Links -->
+      <div>
+        <div class="section-label">Профили</div>
+        <div class="social-strip">
+          <!-- Telegram -->
+          <a class="social-icon-btn" href="https://t.me/userbtzz" target="_blank" title="Telegram">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+          </a>
+
+          <!-- TikTok -->
+          <a class="social-icon-btn" href="https://www.tiktok.com/@kuzyaalica" target="_blank" title="TikTok">
+            <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64c.298-.002.595.042.88.13V9.4a6.33 6.33 0 00-1-.08A6.34 6.34 0 003 15.66a6.34 6.34 0 0010.82 4.49 6.27 6.27 0 001.87-4.48V8.7a8.28 8.28 0 005.15 1.79V7.05c-.42 0-.84-.12-1.25-.36z"/></svg>
+          </a>
+
+          <!-- YouTube -->
+          <a class="social-icon-btn" href="https://youtube.com/@kuzyaalica" target="_blank" title="YouTube">
+            <svg viewBox="0 0 24 24"><path d="M21.58 7.19a2.5 2.5 0 00-1.76-1.77C18.26 5 12 5 12 5s-6.26 0-7.82.42c-.86.23-1.54.91-1.77 1.77C2 8.75 2 12 2 12s0 3.25.41 4.81c.23.86.91 1.54 1.77 1.77C5.74 19 12 19 12 19s6.26 0 7.82-.42a2.5 2.5 0 001.76-1.77C22 15.25 22 12 22 12s0-3.25-.42-4.81zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg>
+          </a>
+
+          <!-- Steam -->
+          <a class="social-icon-btn" href="https://steamcommunity.com/" target="_blank" title="Steam">
+            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-10 10c0 4.7 3.26 8.65 7.67 9.71l1.58-2.28a3.5 3.5 0 01-.25-.43l-3.34-1.37a3.48 3.48 0 01-.42-1.63c0-1.93 1.57-3.5 3.5-3.5.42 0 .82.08 1.19.22l2.36-3.44A5.47 5.47 0 0117.5 7.5C20.54 7.5 23 9.96 23 13s-2.46 5.5-5.5 5.5c-1.37 0-2.62-.5-3.58-1.33l-3.66 1.51c.04.26.06.53.06.82a5.5 5.5 0 01-1.12 3.32A10 10 0 0012 22a10 10 0 0010-10A10 10 0 0012 2zm5.5 7.5c1.93 0 3.5 1.57 3.5 3.5s-1.57 3.5-3.5 3.5-3.5-1.57-3.5-3.5 1.57-3.5 3.5-3.5zm-5.74 5.37l-1.9 2.76c-.27-.08-.55-.13-.86-.13-1.38 0-2.5 1.12-2.5 2.5s1.12 2.5 2.5 2.5 2.5-1.12 2.5-2.5c0-.18-.03-.36-.07-.53l2.06-.85c.17.27.38.51.62.72-.41.74-.65 1.59-.65 2.5 0 .19.01.37.03.56A8 8 0 1120 12c0 1.25-.29 2.43-.8 3.48-.53-.6-1.22-1.07-2-1.34V13c0-2.48-2.02-4.5-4.5-4.5a4.49 4.49 0 00-3.67 1.92l-2.02-.83c.47-.94 1.45-1.59 2.59-1.59 1.66 0 3 1.34 3 3 0 .28-.04.54-.11.8l1.45 1.05c-.09.32-.14.65-.14 1.02z"/></svg>
+          </a>
+
+          <!-- Roblox -->
+          <a class="social-icon-btn" href="https://www.roblox.com/" target="_blank" title="Roblox">
+            <svg viewBox="0 0 24 24"><path d="M18.9 17.5L5.1 22.8 1.1 6.5 14.9 1.2l4 16.3zM8.3 11.2l1.6 6.3 6.3-1.6-1.6-6.3-6.3 1.6z"/></svg>
+          </a>
+
+          <!-- GitHub -->
+          <a class="social-icon-btn" href="https://github.com/kuzyaalica" target="_blank" title="GitHub">
+            <svg viewBox="0 0 24 24"><path d="M12 2A10 10 0 002 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer Tagline -->
+    <div class="author-badge">by kuzyaalica</div>
+
   </div>
 
-  <button class="info-btn" id="openModal">?</button>
-
-  <div class="modal-overlay" id="modalOverlay">
-    <div class="modal-box">привет мой портал теперь не телеграм канал</div>
-  </div>
-
-  <script>
-    const flow = document.getElementById('flow');
-    const openModalBtn = document.getElementById('openModal');
-    const modalOverlay = document.getElementById('modalOverlay');
-
-    // Наклон от мыши (для ПК)
-    window.addEventListener('mousemove', (e) => {
-      const { innerWidth, innerHeight } = window;
-      const rotateX = ((e.clientY / innerHeight) - 0.5) * -25;
-      const rotateY = ((e.clientX / innerWidth) - 0.5) * 25;
-      flow.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-    });
-
-    // Наклон от гироскопа/гиросометра (для смартфона)
-    window.addEventListener('deviceorientation', (e) => {
-      if (e.beta !== null && e.gamma !== null) {
-        const tiltX = Math.max(-15, Math.min(15, (e.beta - 45) / 2)); 
-        const tiltY = Math.max(-15, Math.min(15, e.gamma / 2));
-        flow.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
-      }
-    });
-
-    // Модальное окно
-    openModalBtn.addEventListener('click', () => {
-      modalOverlay.classList.add('active');
-    });
-
-    modalOverlay.addEventListener('click', () => {
-      modalOverlay.classList.remove('active');
-    });
-  </script>
 </body>
 </html>
